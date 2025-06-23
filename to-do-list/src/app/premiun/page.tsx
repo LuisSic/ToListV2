@@ -1,4 +1,3 @@
-"use client";
 import React from "react";
 import Button from "../../components/Button/Button";
 import Image from "next/image";
@@ -67,11 +66,7 @@ const Pricing: React.FC = () => {
             <h3 className="heading-3">Free</h3>
             <p>For Starters</p>
             <h1 className="heading-1">$0</h1>
-            <Button
-              className="btn plan--btn"
-              text="Get Started"
-              callback={() => console.log("click")}
-            />
+            <Button className="btn plan--btn" text="Get Started" />
 
             <div className="plan__features">
               <h3 className="heading-3">Top Feature</h3>
@@ -92,11 +87,7 @@ const Pricing: React.FC = () => {
             <h3 className="heading-3">Premium</h3>
             <p>For Pros</p>
             <h1 className="heading-1">$3</h1>
-            <Button
-              className="btn plan--btn"
-              text="Upgrade Now"
-              callback={() => console.log("click")}
-            />
+            <Button className="btn plan--btn" text="Upgrade Now" />
 
             <div className="plan__features">
               <h3 className="heading-3">Top Feature</h3>
@@ -133,11 +124,7 @@ const Pricing: React.FC = () => {
             <h3 className="heading-3">Business</h3>
             <p>For Teams</p>
             <h1 className="heading-1">$5</h1>
-            <Button
-              className="btn plan--btn"
-              text="Try For Free"
-              callback={() => console.log("click")}
-            />
+            <Button className="btn plan--btn" text="Try For Free" />
 
             <div className="plan__features">
               <h3 className="heading-3">Top Feature</h3>
