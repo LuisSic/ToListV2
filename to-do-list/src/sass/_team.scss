@@ -1,0 +1,59 @@
+@use "base";
+
+.team {
+  grid-column: full-start / full-end;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(55rem, 1fr));
+
+  @media only screen and (max-width: base.$bp-small) {
+    grid-template-columns: repeat(auto-fit, minmax(40rem, 1fr));
+  }
+
+  &__group {
+    display: flex;
+    flex-direction: column;
+    justify-items: center;
+    align-items: center;
+    padding: 5rem;
+
+    p {
+      font-size: 1.6rem;
+      line-height: 1.7;
+      text-align: justify;
+    }
+  }
+
+  .group {
+    display: flex;
+
+    &__images {
+      position: relative;
+      img {
+        box-shadow: 0 10px 30px 1px rgba(0, 0, 0, 0.3);
+        height: 25rem;
+        width: 25rem;
+        margin: 3rem 0;
+        border-radius: 50%;
+        cursor: pointer;
+      }
+    }
+    &__svg {
+      cursor: pointer;
+      fill: #0e76a8;
+      position: absolute;
+      bottom: 2.5rem;
+      right: -2.5rem;
+      height: 4rem;
+      width: 4rem;
+    }
+  }
+
+  .heading-2 {
+    text-align: center;
+    color: base.$color-blue-primary;
+  }
+  .heading-4 {
+    color: base.$color-blue-secondary;
+    padding-top: 2rem;
+  }
+}

@@ -1,0 +1,48 @@
+@use "base";
+
+.slogan {
+  grid-column: full-start / full-end;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 5rem;
+  margin: 5rem 0 0;
+  @media only screen and (max-width: base.$bp-small) {
+    flex-direction: column;
+  }
+
+  &__text {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
+
+  &-btn {
+    background-color: base.$color-purple-primary;
+    border-radius: 1.5rem;
+    margin-top: 2rem;
+    transition: all 0.2s;
+    &:hover {
+      background-color: base.$color-purple-dark;
+    }
+  }
+  &__photo {
+    &--2 {
+      height: 45rem;
+      max-width: 100%;
+    }
+  }
+  .heading-2 {
+    color: base.$color-blue-secondary;
+  }
+
+  .heading-1 {
+    color: base.$color-blue-primary;
+  }
+
+  .heading-1,
+  .heading-2 {
+    text-align: center;
+  }
+}

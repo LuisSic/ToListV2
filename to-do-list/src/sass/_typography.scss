@@ -1,0 +1,58 @@
+@use "base";
+
+%heading {
+  font-family: base.$font-display;
+  font-weight: bold;
+}
+
+.heading-1 {
+  @extend %heading;
+  font-size: 5rem;
+  line-height: 1;
+  @media only screen and (max-width: base.$bp-small) {
+    font-size: 4.5rem;
+  }
+}
+
+.heading-2 {
+  @extend %heading;
+  font-size: 4rem;
+  line-height: 1;
+}
+
+.heading-3 {
+  @extend %heading;
+  font-size: 2.5rem;
+  line-height: 1;
+}
+
+.heading-4 {
+  @extend %heading;
+  font-size: 2rem;
+  line-height: 1;
+}
+
+.btn {
+  outline: none;
+  font-family: base.$font-display;
+  color: base.$color-white;
+  border: none;
+  font-size: 1.5rem;
+  text-transform: uppercase;
+  padding: 1.5rem 3rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+  &:hover {
+    transform: translateY(-1px);
+  }
+}
+
+.primary--btn {
+  background-color: base.$color-purple-primary;
+  border-radius: 1.5rem;
+  transition: all 0.2s;
+  &:hover {
+    background-color: base.$color-purple-dark;
+  }
+}
