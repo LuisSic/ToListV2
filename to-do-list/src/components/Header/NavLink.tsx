@@ -2,7 +2,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
-import Button from "../Button/Button";
+//import Button from "../Button/Button";
 import Image from "next/image";
 
 const buttonsHeader = [
@@ -58,11 +58,17 @@ function NavLinks() {
       />
       <div className={`header__nav header__nav${click ? "--active" : ""}`}>
         {render}
-        <Button
+        <a className="btn btn__header" href="/auth/login?screen_hint=signup">
+          Sign up
+        </a>
+        <a className="btn btn__header" href="/auth/login">
+          Log in
+        </a>
+        {/*  <Button
           className="btn btn__header"
           text="Login"
           callback={() => console.log("click")}
-        />
+        /> */}
       </div>
     </>
   );
