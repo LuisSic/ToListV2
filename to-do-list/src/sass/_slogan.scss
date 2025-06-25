@@ -15,7 +15,6 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 100%;
   }
 
   &-btn {
@@ -27,12 +26,7 @@
       background-color: base.$color-purple-dark;
     }
   }
-  &__photo {
-    &--2 {
-      height: 45rem;
-      max-width: 100%;
-    }
-  }
+
   .heading-2 {
     color: base.$color-blue-secondary;
   }
