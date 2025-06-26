@@ -1,26 +1,26 @@
-import Add from "../../public/features/add-outline.svg";
-import Alert from "../../public/features/alert-circle-outline.svg";
-import Chatbox from "../../public/features/chatbox-outline.svg";
-import Checkmark from "../../public/features/checkmark-circle-outline.svg";
-import Flag from "../../public/features/flag-outline.svg";
-import Heart from "../../public/features/heart-outline.svg";
-import List from "../../public/features/list-outline.svg";
-import Notifications from "../../public/features/notifications-outline.svg";
-import Person from "../../public/features/person-add-outline.svg";
-import Refresh from "../../public/features/refresh-outline.svg";
-import Settings from "../../public/features/settings-outline.svg";
-import Chart from "../../public/features/stats-chart-outline.svg";
-import Photo1 from "../../public/features/photo-2.svg";
+import Add from "../../../public/features/add-outline.svg";
+import Alert from "../../../public/features/alert-circle-outline.svg";
+import Chatbox from "../../../public/features/chatbox-outline.svg";
+import Checkmark from "../../../public/features/checkmark-circle-outline.svg";
+import Flag from "../../../public/features/flag-outline.svg";
+import Heart from "../../../public/features/heart-outline.svg";
+import List from "../../../public/features/list-outline.svg";
+import Notifications from "../../../public/features/notifications-outline.svg";
+import Person from "../../../public/features/person-add-outline.svg";
+import Refresh from "../../../public/features/refresh-outline.svg";
+import Settings from "../../../public/features/settings-outline.svg";
+import Chart from "../../../public/features/stats-chart-outline.svg";
+import Photo1 from "../../../public/features/photo-2.svg";
 
-import Linkedin from "../../public/features/linkedin.svg";
-import Microsoft from "../../public/features/microsoft.svg";
-import Tesla from "../../public/features/coca-cola.svg";
-import Xbox from "../../public/features/xbox-2.svg";
-import Facebook from "../../public/features/facebook-1.svg";
-import Netflix from "../../public/features/netflix-2015-logo.svg";
-import Youtube from "../../public/features/youtube.svg";
-import Sendgrid from "../../public/features/sendgrid-2.svg";
-import Button from "@/components/Button/Button";
+import Linkedin from "../../../public/features/linkedin.svg";
+import Microsoft from "../../../public/features/microsoft.svg";
+import Tesla from "../../../public/features/coca-cola.svg";
+import Xbox from "../../../public/features/xbox-2.svg";
+import Facebook from "../../../public/features/facebook-1.svg";
+import Netflix from "../../../public/features/netflix-2015-logo.svg";
+import Youtube from "../../../public/features/youtube.svg";
+import Sendgrid from "../../../public/features/sendgrid-2.svg";
+
 import Image from "next/image";
 interface FeatureProps {
   title: string;
@@ -49,7 +49,8 @@ const Home = () => {
             <span className="heading-1--main">Organize it all with To Do</span>
           </h1>
           <h2 className="heading-2">The all-in-one-to-do</h2>
-          <Button className="btn slogan-btn" text="Get Started" />
+
+          <button className="btn slogan-btn">Get Started</button>
         </div>
         <Image
           src={"/features/photo-1.svg"}

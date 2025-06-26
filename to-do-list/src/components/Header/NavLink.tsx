@@ -64,11 +64,6 @@ function NavLinks() {
         <a className="btn btn__header" href="/auth/login">
           Log in
         </a>
-        {/*  <Button
-          className="btn btn__header"
-          text="Login"
-          callback={() => console.log("click")}
-        /> */}
       </div>
     </>
   );

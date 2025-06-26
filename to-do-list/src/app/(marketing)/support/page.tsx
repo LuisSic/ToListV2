@@ -1,6 +1,3 @@
-import React from "react";
-import Button from "../../components/Button/Button";
-
 import Image from "next/image";
 
 const topicList = [
@@ -96,7 +93,7 @@ export const Support = () => {
           <div className="support__main--text">
             <h1 className="heading-1">Still Lost?</h1>
             <h1 className="heading-1 heading-1-sub">We&apos;re here for you</h1>
-            <Button className="btn primary--btn" text="Contact Us" />
+            <button className="btn primary--btn">Contact Us</button>
           </div>
           <Image
             src={"/support/question.svg"}
