@@ -76,6 +76,8 @@
             white-space: nowrap;
             text-overflow: ellipsis;
             overflow: hidden;
+            text-decoration: none;
+            color: inherit;
           }
 
           &-cant {
