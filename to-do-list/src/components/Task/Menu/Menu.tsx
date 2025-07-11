@@ -46,12 +46,8 @@ const Menu = (props: MenuProps) => {
   const [inputValue, setInputValue] = useState<string>("");
   const cantMyDay = items.filter((item) => item.isMyDay).length;
   const cantImportant = items.filter((item) => item.isImportant).length;
-  const cantPlanned = items.filter(
-    (item) => item.statusTask === "NOT_FINISH"
-  ).length;
-  const cantAssignedToMe = items.filter(
-    (item) => item.user === "assignedToMe"
-  ).length;
+  const cantPlanned = 0;
+  const cantAssignedToMe = 0;
   const cantInbox = items.filter(
     (item) => item.statusTask === "NOT_FINISH"
   ).length;

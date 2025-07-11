@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 
 import "@/sass/main.scss";
 import { TaskHeader } from "@/components/Task/Header/TaskHeader";
+import IndexMenu from "@/components/Task/Menu/IndexMenu";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -16,7 +17,10 @@ export default function RootLayout({
   return (
     <div className="task">
       <TaskHeader />
-      {children}
+      <div className="task__main">
+        <IndexMenu />
+        {children}
+      </div>
     </div>
   );
 }
