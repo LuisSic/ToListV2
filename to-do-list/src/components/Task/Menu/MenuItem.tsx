@@ -12,10 +12,9 @@ interface MenuItemProps {
   };
   index: number;
   tabSelected: TaskMenuOptions;
+  cantItems: number;
 }
-const MenuItem = ({ item, tabSelected, index }: MenuItemProps) => {
-  const cantItems = [];
-
+const MenuItem = ({ item, tabSelected, index, cantItems }: MenuItemProps) => {
   return (
     <li
       className={`navbar__item ${
@@ -34,8 +33,8 @@ const MenuItem = ({ item, tabSelected, index }: MenuItemProps) => {
       <Link className="navbar__item-text" href={`/task/${item.tabId}`}>
         {item.text}
       </Link>
-      {cantItems.length > 0 ? (
-        <span className="navbar__item-cant">{cantItems.length}</span>
+      {cantItems > 0 ? (
+        <span className="navbar__item-cant">{cantItems}</span>
       ) : null}
     </li>
   );

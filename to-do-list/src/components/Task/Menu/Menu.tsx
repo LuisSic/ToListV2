@@ -4,6 +4,7 @@ import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { TaskHeaderId, TaskMenuOptions } from "@/lib/constants";
 import MenuItem from "./MenuItem";
+import { Todo } from "@/lib/todo.interfaces";
 
 const svgList = [
   {
@@ -32,12 +33,36 @@ const svgList = [
     text: "Task",
   },
 ];
-export const Menu = () => {
+interface MenuProps {
+  items: Todo[];
+}
+
+const Menu = (props: MenuProps) => {
+  const { items } = props;
   const pathname = usePathname();
 
   const [sideNavExpanded, setSideNavExpanded] = useState<boolean>(true);
   const [newList, setNewList] = useState<string[]>([]);
   const [inputValue, setInputValue] = useState<string>("");
+  const cantMyDay = items.filter((item) => item.isMyDay).length;
+  const cantImportant = items.filter((item) => item.isImportant).length;
+  const cantPlanned = items.filter(
+    (item) => item.statusTask === "NOT_FINISH"
+  ).length;
+  const cantAssignedToMe = items.filter(
+    (item) => item.user === "assignedToMe"
+  ).length;
+  const cantInbox = items.filter(
+    (item) => item.statusTask === "NOT_FINISH"
+  ).length;
+
+  const cantBySection = {
+    myday: cantMyDay,
+    important: cantImportant,
+    planned: cantPlanned,
+    assigned_to_me: cantAssignedToMe,
+    inbox: cantInbox,
+  } as const;
 
   const hanldeKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === "Enter") {
@@ -67,12 +92,15 @@ export const Menu = () => {
   });
 
   const renderOptions = svgList.map((svgItem, index) => {
+    const sectionPath = pathname as TaskMenuOptions;
+
     return (
       <MenuItem
-        key={index}
+        key={svgItem.tabId}
         item={svgItem}
         index={index}
-        tabSelected={pathname as TaskMenuOptions}
+        tabSelected={sectionPath}
+        cantItems={cantBySection[svgItem.tabId] || 0} // Use the cantBySection object to get the count
       />
     );
   });
@@ -128,3 +156,5 @@ export const Menu = () => {
     </div>
   );
 };
+
+export default Menu;
