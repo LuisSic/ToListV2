@@ -16,20 +16,21 @@ export const createTodo = async (data: PostTodo): Promise<ResultApi<Todo>> => {
     method: "post",
 
     headers: {
+      "Content-Type": "application/json",
       Authorization: data.token,
     },
     body: JSON.stringify(data.todo),
   });
-  console.log("🚀 ~ createTodo ~ response:", response);
+
   if (!response.ok) {
     return {
       type: "error",
       error: new Error(`API error: ${response.status}`),
     };
   }
-  //console.log("🚀 ~ createTodo ~ response:", response);
+
   const todoData: Todo = await response.json();
-  console.log("🚀 ~ createTodo ~ todoData:", todoData);
+
   return {
     type: "success",
     data: todoData,

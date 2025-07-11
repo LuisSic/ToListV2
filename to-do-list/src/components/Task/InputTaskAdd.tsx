@@ -42,18 +42,6 @@ const InputTaskAdd = ({
             }
             onFocus={() => setInputFocus((prevState) => !prevState)}
             onBlur={() => setInputFocus((prevState) => !prevState)}
-            onKeyDown={(e: React.KeyboardEvent<HTMLInputElement>) => {
-              if (e.key === "Enter") {
-                e.preventDefault();
-                // Add your custom logic here
-                if (inputValue.trim()) {
-                  // The form will automatically submit due to the Form component
-                  // You can add additional logic here if needed
-                  console.log("Task submitted:", inputValue);
-                  setInputValue(""); // Clear the input after submission
-                }
-              }
-            }}
           />
         </Form>
       </div>
