@@ -48,9 +48,7 @@ const Menu = (props: MenuProps) => {
   const cantImportant = items.filter((item) => item.isImportant).length;
   const cantPlanned = 0;
   const cantAssignedToMe = 0;
-  const cantInbox = items.filter(
-    (item) => item.statusTask === "NOT_FINISH"
-  ).length;
+  const cantInbox = items.length;
 
   const cantBySection = {
     myday: cantMyDay,

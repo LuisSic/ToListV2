@@ -1,12 +1,16 @@
 "use server";
 
-import { createTodo } from "@/lib/task";
-import { PostTodo } from "@/lib/todo.interfaces";
+import { createTodo, deleteTodo, updateTodo } from "@/lib/task";
+import { DeleteTodo, EditTodo, PostTodo } from "@/lib/todo.interfaces";
 
 export async function createTask(data: PostTodo) {
-  if (!data.todo.title) {
-    throw new Error("Title is required");
-  }
-
   await createTodo(data);
+}
+
+export async function updateTodoAction(data: EditTodo) {
+  await updateTodo(data);
+}
+
+export async function deleteTodoAction(data: DeleteTodo) {
+  await deleteTodo(data);
 }

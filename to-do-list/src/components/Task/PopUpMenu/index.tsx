@@ -16,21 +16,14 @@ import CheckOutline from "../../../../public/task/ellipse-outline.svg";
 import Check from "../../../../public/task/checkmark-outline.svg";
 import { Todo } from "@/lib/todo.interfaces";
 import DropdownItem from "./Item";
+import Form from "next/form";
+import ButtonForm from "../ButtonForm";
 
 interface PopUpMenuProps {
   todo: Todo;
-  callbackMyDay: () => void;
-  callbackImportant: () => void;
-  callbackCompleted: () => void;
-  callbackDelete: () => void;
+  callbackUpdate: (type: "status" | "myday" | "important" | "delete") => void;
 }
-const PopUpMenu = ({
-  todo,
-  callbackCompleted,
-  callbackImportant,
-  callbackMyDay,
-  callbackDelete,
-}: PopUpMenuProps) => {
+const PopUpMenu = ({ todo, callbackUpdate }: PopUpMenuProps) => {
   const ref = useRef<Element>(null);
   const [menuState, toggleMenu] = useMenuState({ transition: false });
   const anchorProps = useClick(menuState.state, toggleMenu);
@@ -50,33 +43,46 @@ const PopUpMenu = ({
         align="center"
         className="menu-container"
       >
-        <MenuItem onClick={callbackMyDay} className="menu-item">
-          {todo.isMyDay ? (
-            <DropdownItem text="Remove From My Day" Svg={Sunny} />
-          ) : (
-            <DropdownItem text="Add to My Day" Svg={Sunny} />
-          )}
-        </MenuItem>
-        <MenuItem onClick={callbackImportant} className="menu-item">
-          {todo.isImportant ? (
-            <DropdownItem text="Remove Importance" Svg={Star} />
-          ) : (
-            <DropdownItem text="Mark as Important" Svg={Star} />
-          )}
-        </MenuItem>
-        <MenuItem onClick={callbackCompleted} className="menu-item">
-          {todo.statusTask === "NOT_FINISH" ? (
-            <DropdownItem text="Mark as Completed" Svg={Check} />
-          ) : (
-            <DropdownItem text="Mark as not Completed" Svg={CheckOutline} />
-          )}
-        </MenuItem>
-        <MenuItem
-          className="menu-item menu-item--delete"
-          onClick={callbackDelete}
-        >
-          <DropdownItem text="Delete Task" Svg={Trash} />
-        </MenuItem>
+        <Form action={callbackUpdate.bind(null, "myday")}>
+          <MenuItem className="menu-item">
+            <ButtonForm>
+              {todo.isMyDay ? (
+                <DropdownItem text="Remove From My Day" Svg={Sunny} />
+              ) : (
+                <DropdownItem text="Add to My Day" Svg={Sunny} />
+              )}
+            </ButtonForm>
+          </MenuItem>
+        </Form>
+        <Form action={callbackUpdate.bind(null, "important")}>
+          <MenuItem className="menu-item">
+            <ButtonForm>
+              {todo.isImportant ? (
+                <DropdownItem text="Remove Importance" Svg={Star} />
+              ) : (
+                <DropdownItem text="Mark as Important" Svg={Star} />
+              )}
+            </ButtonForm>
+          </MenuItem>
+        </Form>
+        <Form action={callbackUpdate.bind(null, "status")}>
+          <MenuItem className="menu-item">
+            <ButtonForm>
+              {todo.statusTask === "NOT_FINISH" ? (
+                <DropdownItem text="Mark as Completed" Svg={Check} />
+              ) : (
+                <DropdownItem text="Mark as not Completed" Svg={CheckOutline} />
+              )}
+            </ButtonForm>
+          </MenuItem>
+        </Form>
+        <Form action={callbackUpdate.bind(null, "delete")}>
+          <MenuItem className="menu-item menu-item--delete">
+            <ButtonForm>
+              <DropdownItem text="Delete Task" Svg={Trash} />
+            </ButtonForm>
+          </MenuItem>
+        </Form>
       </ControlledMenu>
     </>
   );

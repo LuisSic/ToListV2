@@ -1,9 +1,10 @@
 import { fetchTodos } from "@/lib/task";
-import InputTaskAdd from "./InputTaskAdd";
+
 import { TaskHeaderTypes } from "@/lib/constants";
-import TaskList from "./TaskList";
+
 import { Todo } from "@/lib/todo.interfaces";
 
+import TaskBodySection from "./TaskBodySection";
 interface Params {
   token: string;
   section: TaskHeaderTypes;
@@ -30,19 +31,14 @@ async function TaskBody({ token, section }: Params) {
   } else if (section === "assigned_to_me") {
     selectedTodos = [];
   } else if (section === "inbox") {
-    selectedTodos = todos.filter((todo) => todo.statusTask === "NOT_FINISH");
+    selectedTodos = todos;
   } else {
     selectedTodos = todos;
   }
 
   return (
     <>
-      <InputTaskAdd
-        token={token}
-        isImportant={section === "important"}
-        isMyDay={section === "myday"}
-      />
-      <TaskList token={token} todos={selectedTodos} />
+      <TaskBodySection token={token} section={section} todos={selectedTodos} />
     </>
   );
 }

@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import Form from "next/form";
 import Add from "../../../public/features/add-outline.svg";
 import Circle from "../../../public/task/ellipse-outline.svg";
@@ -15,8 +15,26 @@ const InputTaskAdd = ({
   isMyDay = false,
   token,
 }: InputTaskAddProps) => {
-  const [inputValue, setInputValue] = useState("");
+  const formRef = useRef<HTMLFormElement | null>(null);
+
   const [inputFocus, setInputFocus] = useState(false);
+
+  async function handleSubmit(formData: FormData) {
+    if (!formData.get("title")) {
+      return;
+    }
+
+    const newTodo = {
+      title: formData.get("title") as string,
+      isImportant,
+      isMyDay,
+    };
+    await createTask({
+      todo: newTodo,
+      token,
+    });
+    formRef.current?.reset();
+  }
 
   return (
     <>
@@ -26,22 +44,14 @@ const InputTaskAdd = ({
         ) : (
           <Add className="icon-small baseAdd__icon" />
         )}
-        <Form
-          action={createTask.bind(null, {
-            todo: { title: inputValue, isImportant, isMyDay },
-            token: token,
-          })}
-        >
+        <Form action={handleSubmit} ref={formRef}>
           <input
-            value={inputValue}
             className="baseAdd__input"
             type="text"
             placeholder="Add a task"
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-              setInputValue(e.currentTarget.value)
-            }
             onFocus={() => setInputFocus((prevState) => !prevState)}
             onBlur={() => setInputFocus((prevState) => !prevState)}
+            name="title"
           />
         </Form>
       </div>
