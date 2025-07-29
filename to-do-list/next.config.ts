@@ -4,6 +4,7 @@ const nextConfig: NextConfig = {
   images: {
     remotePatterns: [new URL("https://lh3.googleusercontent.com/**")],
   },
+  // Configure Turbopack for SVG handling
   turbopack: {
     rules: {
       "*.svg": {
@@ -11,6 +12,16 @@ const nextConfig: NextConfig = {
         as: "*.js",
       },
     },
+  },
+  // Fallback webpack config for when Turbopack is not used
+  webpack(config) {
+    // Handle SVG imports as React components
+    config.module.rules.push({
+      test: /\.svg$/,
+      use: ["@svgr/webpack"],
+    });
+
+    return config;
   },
 };
 

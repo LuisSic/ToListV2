@@ -5,7 +5,7 @@ import Image from "next/image";
 // Approach 1: Using Omit to exclude fixed props
 type IconProps = Omit<React.ComponentProps<typeof Image>, "src" | "alt">;
 
-export const Teams: React.FC<IconProps> = (props) => {
+const Teams: React.FC<IconProps> = (props) => {
   return (
     <Image
       src="/pricing/undraw_miro_qvwm.svg"
@@ -17,7 +17,7 @@ export const Teams: React.FC<IconProps> = (props) => {
   );
 };
 
-export const Checkmark: React.FC<IconProps> = (props) => {
+const Checkmark: React.FC<IconProps> = (props) => {
   return (
     <Image
       src="/features/checkmark-circle-outline.svg"
@@ -29,7 +29,7 @@ export const Checkmark: React.FC<IconProps> = (props) => {
   );
 };
 
-export const Update: React.FC<IconProps> = (props) => {
+const Update: React.FC<IconProps> = (props) => {
   return (
     <Image
       src="/pricing/undraw_update_uxn2.svg"
@@ -41,7 +41,7 @@ export const Update: React.FC<IconProps> = (props) => {
   );
 };
 
-export const Free: React.FC<IconProps> = (props) => {
+const Free: React.FC<IconProps> = (props) => {
   return (
     <Image
       src="/pricing/undraw_order_confirmed_aaw7.svg"
@@ -53,7 +53,7 @@ export const Free: React.FC<IconProps> = (props) => {
   );
 };
 
-const Pricing: React.FC = () => {
+const Pricing = () => {
   return (
     <>
       <div className="pricing">

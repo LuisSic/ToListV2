@@ -75,7 +75,7 @@ const topicList = [
   },
 ];
 
-export const Support = () => {
+const Support = () => {
   const render = topicList.map((topic, index) => {
     return (
       <div className="topic" key={index}>
