@@ -4,7 +4,7 @@ import { TaskHeaderTypes } from "@/lib/constants";
 import TaskList from "./TaskList";
 import { Todo } from "@/lib/todo.interfaces";
 import { useOptimistic } from "react";
-import { deleteTodoAction, updateTodoAction } from "@/actions/task";
+
 interface Params {
   todos: Todo[];
   section: TaskHeaderTypes;
@@ -29,22 +29,12 @@ function TaskBodySection({ token, section, todos }: Params) {
     }
   );
 
-  async function handleUpdateTodo(todo: Todo) {
+  function handleUpdateTodo(todo: Todo) {
     actionsTodos({ type: "update", todo });
-
-    await updateTodoAction({
-      todo,
-      token,
-    });
   }
 
-  async function handleDeleteTodo(id: string) {
+  function handleDeleteTodo(id: string) {
     actionsTodos({ type: "delete", id });
-
-    await deleteTodoAction({
-      id,
-      token,
-    });
   }
 
   return (
@@ -55,6 +45,7 @@ function TaskBodySection({ token, section, todos }: Params) {
         isMyDay={section === "myday"}
       />
       <TaskList
+        token={token}
         todos={optimisticTodos}
         handleUpdateTodo={handleUpdateTodo}
         handleDeleteTodo={handleDeleteTodo}

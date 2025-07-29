@@ -3,12 +3,17 @@ import { Todo } from "@/lib/todo.interfaces";
 import { TodoItem } from "./TodoItem";
 interface Props {
   todos: Todo[];
-
-  handleUpdateTodo: (data: Todo) => Promise<void>;
-  handleDeleteTodo: (id: string) => Promise<void>;
+  token: string;
+  handleUpdateTodo: (data: Todo) => void;
+  handleDeleteTodo: (id: string) => void;
 }
 
-const TaskList = ({ todos, handleUpdateTodo, handleDeleteTodo }: Props) => {
+const TaskList = ({
+  todos,
+  handleUpdateTodo,
+  handleDeleteTodo,
+  token,
+}: Props) => {
   const renderTasks = todos.map((task) => {
     return (
       <TodoItem
@@ -16,6 +21,7 @@ const TaskList = ({ todos, handleUpdateTodo, handleDeleteTodo }: Props) => {
         todo={task}
         handleUpdateTodo={handleUpdateTodo}
         handleDeleteTodo={handleDeleteTodo}
+        token={token}
       />
     );
   });

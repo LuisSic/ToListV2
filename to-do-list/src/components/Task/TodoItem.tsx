@@ -9,26 +9,46 @@ import { StatusTask, Todo } from "@/lib/todo.interfaces";
 
 import Form from "next/form";
 import ButtonForm from "./ButtonForm";
+import { useActionState } from "react";
+import { deleteTodoAction, updateTodoAction } from "@/actions/task";
 
 interface TodoItemProps {
   todo: Todo;
-  handleDeleteTodo: (id: string) => Promise<void>;
-  handleUpdateTodo: (data: Todo) => Promise<void>;
+  handleDeleteTodo: (id: string) => void;
+  handleUpdateTodo: (data: Todo) => void;
+  token: string;
 }
 
 export const TodoItem = ({
   todo,
   handleUpdateTodo,
   handleDeleteTodo,
+  token,
 }: TodoItemProps) => {
   let status: StatusTask = "NOT_FINISH";
   if (todo.statusTask === "NOT_FINISH") {
     status = "COMPLETED";
   }
+  const boundUpdateAction = updateTodoAction.bind(null, { todo, token: token });
+  const boundDeleteAction = deleteTodoAction.bind(null, {
+    id: todo.id,
+    token: token,
+  });
 
-  const handleClick = async (
-    type: "status" | "myday" | "important" | "delete"
-  ) => {
+  const [updateState, formUpdateAction] = useActionState(
+    boundUpdateAction,
+    undefined
+  );
+  console.log("🚀 ~ TodoItem ~ updateState:", updateState);
+
+  const [deleteState, formDeleteAction] = useActionState(
+    boundDeleteAction,
+    undefined
+  );
+  console.log("🚀 ~ TodoItem ~ deleteState:", deleteState);
+
+  const handleClick = (formData: FormData) => {
+    const type = formData.get("action");
     const updateTodo = { ...todo };
     if (type === "status") {
       updateTodo.statusTask = status;
@@ -39,9 +59,11 @@ export const TodoItem = ({
     }
 
     if (type === "delete") {
-      await handleDeleteTodo(todo.id);
+      handleDeleteTodo(todo.id);
+      formDeleteAction(formData);
     } else {
-      await handleUpdateTodo(updateTodo);
+      handleUpdateTodo(updateTodo);
+      formUpdateAction(formData);
     }
   };
 
@@ -51,17 +73,9 @@ export const TodoItem = ({
 
   return (
     <>
-      <div className="tasks__item">
-        <Form
-          action={handleUpdateTodo.bind(null, {
-            ...todo,
-            statusTask: status,
-            isMyDay: todo.isMyDay,
-            isImportant: todo.isImportant,
-            id: todo.id,
-          })}
-        >
-          <ButtonForm>
+      <Form action={handleClick}>
+        <div className="tasks__item">
+          <ButtonForm name="action" value="status">
             <div className="tasks__item-icons">
               {todo.statusTask === "NOT_FINISH" ? (
                 <>
@@ -73,44 +87,37 @@ export const TodoItem = ({
               )}
             </div>
           </ButtonForm>
-        </Form>
 
-        <button className="tasks__item-btn">
-          <span className={todo.statusTask === "COMPLETED" ? "completed" : ""}>
-            {todo.title}
-          </span>
-        </button>
-        {todo.isImportant ? (
-          <Form
-            action={handleUpdateTodo.bind(null, {
-              ...todo,
-              statusTask: todo.statusTask,
-              isMyDay: todo.isMyDay,
-              isImportant: !todo.isImportant,
-              id: todo.id,
-            })}
-          >
-            <ButtonForm>
+          <button className="tasks__item-btn">
+            <span
+              className={todo.statusTask === "COMPLETED" ? "completed" : ""}
+            >
+              {todo.title}
+            </span>
+          </button>
+          {updateState?.type === "error" ? (
+            <div style={{ width: "20%" }}>
+              <span className="error">{updateState?.error}</span>
+            </div>
+          ) : null}
+          {deleteState?.type === "error" ? (
+            <div style={{ width: "20%" }}>
+              <span className="error">{deleteState?.error}</span>
+            </div>
+          ) : null}
+          {todo.isImportant ? (
+            <ButtonForm name="action" value="important">
               <StarFilled className="icon-small tasks__item-importanceCompleted" />
             </ButtonForm>
-          </Form>
-        ) : (
-          <Form
-            action={handleUpdateTodo.bind(null, {
-              ...todo,
-              statusTask: todo.statusTask,
-              isMyDay: todo.isMyDay,
-              isImportant: !todo.isImportant,
-              id: todo.id,
-            })}
-          >
-            <ButtonForm>
+          ) : (
+            <ButtonForm name="action" value="important">
               <Star className="icon-small tasks__item-importanceButton" />
             </ButtonForm>
-          </Form>
-        )}
-        <PopUpMenu todo={todo} callbackUpdate={handleClick} />
-      </div>
+          )}
+
+          <PopUpMenu todo={todo} />
+        </div>
+      </Form>
     </>
   );
 };

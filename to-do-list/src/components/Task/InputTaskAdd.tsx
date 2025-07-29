@@ -4,12 +4,13 @@ import Form from "next/form";
 import Add from "../../../public/features/add-outline.svg";
 import Circle from "../../../public/task/ellipse-outline.svg";
 import { createTask } from "@/actions/task";
-
+import { useActionState } from "react";
 interface InputTaskAddProps {
   isImportant?: boolean;
   isMyDay?: boolean;
   token: string;
 }
+
 const InputTaskAdd = ({
   isImportant = false,
   isMyDay = false,
@@ -17,24 +18,11 @@ const InputTaskAdd = ({
 }: InputTaskAddProps) => {
   const formRef = useRef<HTMLFormElement | null>(null);
 
+  const boundAction = createTask.bind(null, { isImportant, isMyDay, token });
+
+  const [state, formAction] = useActionState(boundAction, undefined);
+  console.log("🚀 ~ state:", state);
   const [inputFocus, setInputFocus] = useState(false);
-
-  async function handleSubmit(formData: FormData) {
-    if (!formData.get("title")) {
-      return;
-    }
-
-    const newTodo = {
-      title: formData.get("title") as string,
-      isImportant,
-      isMyDay,
-    };
-    await createTask({
-      todo: newTodo,
-      token,
-    });
-    formRef.current?.reset();
-  }
 
   return (
     <>
@@ -44,7 +32,7 @@ const InputTaskAdd = ({
         ) : (
           <Add className="icon-small baseAdd__icon" />
         )}
-        <Form action={handleSubmit} ref={formRef}>
+        <Form action={formAction} ref={formRef}>
           <input
             className="baseAdd__input"
             type="text"

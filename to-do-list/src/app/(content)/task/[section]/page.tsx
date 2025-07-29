@@ -4,7 +4,7 @@ import { TaskHeaderTitles, TaskHeaderTypes } from "@/lib/constants";
 
 import TaskBody from "@/components/Task/TaskBody";
 import { Suspense } from "react";
-
+import { ErrorBoundary } from "react-error-boundary";
 const dateNow = new Intl.DateTimeFormat("en-GB", {
   dateStyle: "full",
 }).format(new Date());
@@ -26,9 +26,20 @@ export default async function Home({
             <span className="todayNow">{dateNow}</span>
           ) : null}
         </div>
-        <Suspense fallback={<div>Loading tasks suspense...</div>}>
-          <TaskBody token={session?.tokenSet.idToken ?? ""} section={section} />
-        </Suspense>
+        <ErrorBoundary
+          fallback={
+            <h2 style={{ color: "red", marginLeft: "2rem" }}>
+              Something went wrong{" "}
+            </h2>
+          }
+        >
+          <Suspense fallback={<div>Loading tasks suspense...</div>}>
+            <TaskBody
+              token={session?.tokenSet.idToken ?? ""}
+              section={section}
+            />
+          </Suspense>
+        </ErrorBoundary>
         <div className="backgroundLines"></div>
       </div>
     </>

@@ -12,29 +12,43 @@ interface FetchTodosParams {
 }
 
 export const createTodo = async (data: PostTodo): Promise<ResultApi<Todo>> => {
-  const response = await fetch(`${TASK_API}/task`, {
-    method: "post",
+  try {
+    const response = await fetch(`${TASK_API}/task`, {
+      method: "post",
 
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: data.token,
-    },
-    body: JSON.stringify(data.todo),
-  });
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: data.token,
+      },
+      body: JSON.stringify(data.todo),
+    });
 
-  if (!response.ok) {
+    if (!response.ok) {
+      return {
+        type: "error",
+        error: `API error: ${response.status}`,
+      };
+    }
+
+    const todoData: Todo = await response.json();
+
     return {
-      type: "error",
-      error: new Error(`API error: ${response.status}`),
+      type: "success",
+      data: todoData,
     };
+  } catch (error) {
+    if (error instanceof Error) {
+      return {
+        type: "error",
+        error: `API error: ${error.message}`,
+      };
+    } else {
+      return {
+        type: "error",
+        error: "An unknown error occurred",
+      };
+    }
   }
-
-  const todoData: Todo = await response.json();
-
-  return {
-    type: "success",
-    data: todoData,
-  };
 };
 
 export const fetchTodos = async (
@@ -49,7 +63,7 @@ export const fetchTodos = async (
   if (!response.ok) {
     return {
       type: "error",
-      error: new Error("Failed to fetch todos"),
+      error: "Failed to fetch todos",
     };
   }
 
@@ -62,48 +76,76 @@ export const fetchTodos = async (
 };
 
 export const updateTodo = async (data: EditTodo): Promise<ResultApi<Todo>> => {
-  const response = await fetch(`${TASK_API}/task/${data.todo.id}`, {
-    method: "PUT",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: data.token,
-    },
-    body: JSON.stringify(data.todo),
-  });
+  try {
+    const response = await fetch(`${TASK_API}/task/${data.todo.id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: data.token,
+      },
+      body: JSON.stringify(data.todo),
+    });
 
-  if (!response.ok) {
+    if (!response.ok) {
+      return {
+        type: "error",
+        error: `API error: ${response.status}`,
+      };
+    }
+
+    const todoData: Todo = await response.json();
     return {
-      type: "error",
-      error: new Error(`API error: ${response.status}`),
+      type: "success",
+      data: todoData,
     };
+  } catch (error) {
+    if (error instanceof Error) {
+      return {
+        type: "error",
+        error: `API error: ${error.message}`,
+      };
+    } else {
+      return {
+        type: "error",
+        error: "An unknown error occurred",
+      };
+    }
   }
-
-  const todoData: Todo = await response.json();
-  return {
-    type: "success",
-    data: todoData,
-  };
 };
 
 export const deleteTodo = async (
   params: DeleteTodo
 ): Promise<ResultApi<string>> => {
-  const response = await fetch(`${TASK_API}/task/${params.id}`, {
-    method: "DELETE",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: params.token,
-    },
-  });
+  try {
+    const response = await fetch(`${TASK_API}/task/${params.id}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: params.token,
+      },
+    });
 
-  if (!response.ok) {
+    if (!response.ok) {
+      return {
+        type: "error",
+        error: `API error: ${response.status}`,
+      };
+    }
     return {
-      type: "error",
-      error: new Error(`API error: ${response.status}`),
+      type: "success",
+      data: params.id,
     };
+  } catch (error) {
+    if (error instanceof Error) {
+      return {
+        type: "error",
+        error: `API error: ${error.message}`,
+      };
+    } else {
+      return {
+        type: "error",
+        error: "An unknown error occurred",
+      };
+    }
   }
-  return {
-    type: "success",
-    data: params.id,
-  };
 };

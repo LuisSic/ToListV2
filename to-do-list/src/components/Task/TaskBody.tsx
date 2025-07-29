@@ -16,7 +16,7 @@ async function TaskBody({ token, section }: Params) {
   });
 
   if (response.type === "error") {
-    throw response.error;
+    throw new Error(response.error);
   }
   const todos = response.data;
 

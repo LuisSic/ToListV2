@@ -14,9 +14,12 @@ export interface PostTodo {
   todo: Pick<Todo, "title" | "isImportant" | "isMyDay">;
   token: string;
 }
-
+export type UpdateTodo = Pick<
+  Todo,
+  "id" | "statusTask" | "isImportant" | "isMyDay"
+>;
 export interface EditTodo {
-  todo: Pick<Todo, "id" | "statusTask" | "isImportant" | "isMyDay">;
+  todo: UpdateTodo;
   token: string;
 }
 
@@ -27,4 +30,4 @@ export interface DeleteTodo {
 
 export type ResultApi<T> =
   | { type: "success"; data: T }
-  | { type: "error"; error: Error };
+  | { type: "error"; error: string };
