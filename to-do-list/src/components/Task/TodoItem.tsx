@@ -29,6 +29,7 @@ export const TodoItem = ({
   if (todo.statusTask === "NOT_FINISH") {
     status = "COMPLETED";
   }
+
   const boundUpdateAction = updateTodoAction.bind(null, { todo, token: token });
   const boundDeleteAction = deleteTodoAction.bind(null, {
     id: todo.id,
@@ -39,13 +40,11 @@ export const TodoItem = ({
     boundUpdateAction,
     undefined
   );
-  console.log("🚀 ~ TodoItem ~ updateState:", updateState);
 
   const [deleteState, formDeleteAction] = useActionState(
     boundDeleteAction,
     undefined
   );
-  console.log("🚀 ~ TodoItem ~ deleteState:", deleteState);
 
   const handleClick = (formData: FormData) => {
     const type = formData.get("action");
@@ -114,7 +113,6 @@ export const TodoItem = ({
               <Star className="icon-small tasks__item-importanceButton" />
             </ButtonForm>
           )}
-
           <PopUpMenu todo={todo} />
         </div>
       </Form>

@@ -29,7 +29,7 @@ export default async function Home({
         <ErrorBoundary
           fallback={
             <h2 style={{ color: "red", marginLeft: "2rem" }}>
-              Something went wrong{" "}
+              Something went wrong
             </h2>
           }
         >

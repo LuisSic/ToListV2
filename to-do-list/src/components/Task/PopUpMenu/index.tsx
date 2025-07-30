@@ -24,6 +24,7 @@ interface PopUpMenuProps {
 }
 const PopUpMenu = ({ todo }: PopUpMenuProps) => {
   const ref = useRef<Element>(null);
+
   const [menuState, toggleMenu] = useMenuState({ transition: false });
   const anchorProps = useClick(menuState.state, toggleMenu);
   return (
@@ -33,6 +34,7 @@ const PopUpMenu = ({ todo }: PopUpMenuProps) => {
         ref={ref}
         {...anchorProps}
       />
+
       <ControlledMenu
         {...menuState}
         anchorRef={ref as React.RefObject<Element>}
@@ -40,9 +42,8 @@ const PopUpMenu = ({ todo }: PopUpMenuProps) => {
         direction="left"
         arrow={true}
         align="center"
-        className="menu-container"
       >
-        <MenuItem className="menu-item">
+        <MenuItem>
           <ButtonForm name="action" value="myday">
             {todo.isMyDay ? (
               <DropdownItem text="Remove From My Day" Svg={Sunny} />
@@ -52,7 +53,7 @@ const PopUpMenu = ({ todo }: PopUpMenuProps) => {
           </ButtonForm>
         </MenuItem>
 
-        <MenuItem className="menu-item">
+        <MenuItem>
           <ButtonForm name="action" value="important">
             {todo.isImportant ? (
               <DropdownItem text="Remove Importance" Svg={Star} />
@@ -62,7 +63,7 @@ const PopUpMenu = ({ todo }: PopUpMenuProps) => {
           </ButtonForm>
         </MenuItem>
 
-        <MenuItem className="menu-item">
+        <MenuItem>
           <ButtonForm name="action" value="status">
             {todo.statusTask === "NOT_FINISH" ? (
               <DropdownItem text="Mark as Completed" Svg={Check} />
@@ -71,8 +72,7 @@ const PopUpMenu = ({ todo }: PopUpMenuProps) => {
             )}
           </ButtonForm>
         </MenuItem>
-
-        <MenuItem className="menu-item menu-item--delete">
+        <MenuItem>
           <ButtonForm name="action" value="delete">
             <DropdownItem text="Delete Task" Svg={Trash} />
           </ButtonForm>
