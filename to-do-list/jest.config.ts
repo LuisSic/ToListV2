@@ -145,7 +145,7 @@ const config: Config = {
   // setupFiles: [],
 
   // A list of paths to modules that run some code to configure or set up the testing framework before each test
-  // setupFilesAfterEnv: [],
+  //setupFilesAfterEnv: ["<rootDir>/src/test-utils/setup.js"],
 
   // The number of seconds after which a test is considered as slow and reported as such in the results.
   // slowTestThreshold: 5,
@@ -154,7 +154,7 @@ const config: Config = {
   // snapshotSerializers: [],
 
   // The test environment that will be used for testing
-  testEnvironment: "jsdom",
+  testEnvironment: "jest-environment-jsdom",
 
   // Options that will be passed to the testEnvironment
   // testEnvironmentOptions: {},
@@ -203,9 +203,22 @@ const config: Config = {
   // Whether to use watchman for file crawling
   // watchman: true,
   moduleNameMapper: {
+    "\\.(css|module\\.css|scss|module\\.scss)$": "identity-obj-proxy",
     "^@/(.*)$": "<rootDir>/src/$1",
+    "\\.svg$": "<rootDir>/__mocks__/svg.js",
   },
 };
 
+const jestConfig = async () => {
+  const nextJestConfig = await createJestConfig(config)();
+  return {
+    ...nextJestConfig,
+    moduleNameMapper: {
+      // Workaround to put our SVG mock first
+      "\\.svg$": "<rootDir>/__mocks__/svg.js",
+      ...nextJestConfig.moduleNameMapper,
+    },
+  };
+};
 // createJestConfig is exported this way to ensure that next/jest can load the Next.js config which is async
-export default createJestConfig(config);
+export default jestConfig;
