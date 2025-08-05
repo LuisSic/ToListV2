@@ -205,20 +205,9 @@ const config: Config = {
   moduleNameMapper: {
     "\\.(css|module\\.css|scss|module\\.scss)$": "identity-obj-proxy",
     "^@/(.*)$": "<rootDir>/src/$1",
-    "\\.svg$": "<rootDir>/__mocks__/svg.js",
+    "^.+\\.(svg)$": "<rootDir>/__mocks__/svg.js",
   },
 };
 
-const jestConfig = async () => {
-  const nextJestConfig = await createJestConfig(config)();
-  return {
-    ...nextJestConfig,
-    moduleNameMapper: {
-      // Workaround to put our SVG mock first
-      "\\.svg$": "<rootDir>/__mocks__/svg.js",
-      ...nextJestConfig.moduleNameMapper,
-    },
-  };
-};
 // createJestConfig is exported this way to ensure that next/jest can load the Next.js config which is async
-export default jestConfig;
+export default createJestConfig(config);
