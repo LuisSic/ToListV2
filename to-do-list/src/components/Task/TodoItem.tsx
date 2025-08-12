@@ -48,6 +48,7 @@ export const TodoItem = ({
 
   const handleClick = (formData: FormData) => {
     const type = formData.get("action");
+    console.log("🚀 ~ handleClick ~ type:", type);
     const updateTodo = { ...todo };
     if (type === "status") {
       updateTodo.statusTask = status;
@@ -74,7 +75,15 @@ export const TodoItem = ({
     <>
       <Form action={handleClick}>
         <div className="tasks__item">
-          <ButtonForm name="action" value="status">
+          <ButtonForm
+            name="action"
+            value="status"
+            aria-label={
+              todo.statusTask === "COMPLETED"
+                ? "Task Completed"
+                : "Task Not Completed"
+            }
+          >
             <div className="tasks__item-icons">
               {todo.statusTask === "NOT_FINISH" ? (
                 <>

@@ -41,9 +41,17 @@
     "husky": "^9.1.7",
     "jest": "^30.0.5",
     "jest-environment-jsdom": "^30.0.5",
+    "jest-fixed-jsdom": "^0.0.9",
     "lint-staged": "^16.1.2",
+    "msw": "^2.10.4",
     "sass": "^1.89.2",
     "ts-node": "^10.9.2",
-    "typescript": "^5"
+    "typescript": "^5",
+    "whatwg-fetch": "^3.6.20"
+  },
+  "msw": {
+    "workerDirectory": [
+      "public"
+    ]
   }
 }

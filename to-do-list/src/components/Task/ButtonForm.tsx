@@ -4,12 +4,19 @@ interface ButtonFormProps {
   children: React.ReactNode;
   name?: string;
   value?: string;
+  "aria-label"?: string;
 }
 
-const ButtonForm = ({ children, name, value }: ButtonFormProps) => {
+const ButtonForm = ({
+  children,
+  name,
+  value,
+  "aria-label": ariaLabel,
+}: ButtonFormProps) => {
   return (
     <>
       <button
+        aria-label={ariaLabel}
         type="submit"
         name={name}
         value={value}

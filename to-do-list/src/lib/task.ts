@@ -78,7 +78,7 @@ export const fetchTodos = async (
 export const updateTodo = async (data: EditTodo): Promise<ResultApi<Todo>> => {
   try {
     const response = await fetch(`${TASK_API}/task/${data.todo.id}`, {
-      method: "PUT",
+      method: "put",
       headers: {
         "Content-Type": "application/json",
         Authorization: data.token,

@@ -154,7 +154,7 @@ const config: Config = {
   // snapshotSerializers: [],
 
   // The test environment that will be used for testing
-  testEnvironment: "jest-environment-jsdom",
+  testEnvironment: "jest-fixed-jsdom",
 
   // Options that will be passed to the testEnvironment
   // testEnvironmentOptions: {},
@@ -202,10 +202,12 @@ const config: Config = {
 
   // Whether to use watchman for file crawling
   // watchman: true,
+  setupFilesAfterEnv: ["./jest.setup.ts"],
   moduleNameMapper: {
     "\\.(css|module\\.css|scss|module\\.scss)$": "identity-obj-proxy",
     "^@/(.*)$": "<rootDir>/src/$1",
     "^.+\\.(svg)$": "<rootDir>/__mocks__/svg.js",
+    "^next\\/form$": "<rootDir>/__mocks__/next/form.js",
   },
 };
 

@@ -20,8 +20,8 @@ const InputTaskAdd = ({
 
   const boundAction = createTask.bind(null, { isImportant, isMyDay, token });
 
-  const [state, formAction] = useActionState(boundAction, undefined);
-  console.log("🚀 ~ state:", state);
+  const [, formAction] = useActionState(boundAction, undefined);
+  //console.log("🚀 ~ state:", state);
   const [inputFocus, setInputFocus] = useState(false);
 
   return (
@@ -34,6 +34,7 @@ const InputTaskAdd = ({
         )}
         <Form action={formAction} ref={formRef}>
           <input
+            aria-label="AddTask"
             className="baseAdd__input"
             type="text"
             placeholder="Add a task"
