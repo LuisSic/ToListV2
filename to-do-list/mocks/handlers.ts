@@ -1,5 +1,5 @@
 // __mocks__/msw/handlers.ts
-import { http, HttpResponse, HttpResponseResolver } from "msw";
+import { http, HttpResponse, HttpResponseResolver, delay } from "msw";
 import { TASK_API } from "@/lib/constants";
 import { PostTodo, Todo, UpdateTodo } from "@/lib/todo.interfaces";
 
@@ -30,6 +30,7 @@ export const handlers = [
     });
   }),
   handleUpdateTodoRequest(async ({ request }) => {
+    await delay(150); // Simulate network delay
     const todo = await request.json();
     console.log("🚀 ~ handleUpdateTodoRequest:", todo);
     return HttpResponse.json({
