@@ -29,11 +29,19 @@ const PopUpMenu = ({ todo }: PopUpMenuProps) => {
   const anchorProps = useClick(menuState.state, toggleMenu);
   return (
     <>
-      <MenuOption
-        className="icon-small tasks__item-arrowMenu"
-        ref={ref}
-        {...anchorProps}
-      />
+      <button
+        aria-label="Open Menu"
+        style={{
+          all: "unset", // reset everything
+          cursor: "pointer", // restore pointer so it feels clickable
+        }}
+      >
+        <MenuOption
+          className="icon-small tasks__item-arrowMenu"
+          ref={ref}
+          {...anchorProps}
+        />
+      </button>
 
       <ControlledMenu
         {...menuState}
@@ -73,7 +81,7 @@ const PopUpMenu = ({ todo }: PopUpMenuProps) => {
           </ButtonForm>
         </MenuItem>
         <MenuItem>
-          <ButtonForm name="action" value="delete">
+          <ButtonForm name="action" value="delete" aria-label={"Delete Task"}>
             <DropdownItem text="Delete Task" Svg={Trash} />
           </ButtonForm>
         </MenuItem>

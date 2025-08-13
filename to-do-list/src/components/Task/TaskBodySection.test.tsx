@@ -3,6 +3,11 @@ import userEvent from "@testing-library/user-event";
 import "@testing-library/jest-dom";
 import TaskBodySection from "./TaskBodySection";
 import { Todo } from "@/lib/todo.interfaces";
+
+// Helper function to wait for a specified amount of time
+const waitFor = (ms: number) =>
+  new Promise((resolve) => setTimeout(resolve, ms));
+
 const TODOS: Todo[] = [
   {
     createdAt: "2025-07-18T02:58:03.866Z",
@@ -73,7 +78,6 @@ describe("Test TaskBodySection", () => {
       />
     );
 
-    // Find the status button specifically
     const statusButton = screen.getByRole("button", {
       name: "Task Not Completed",
     });
@@ -81,21 +85,15 @@ describe("Test TaskBodySection", () => {
     expect(statusButton).toBeInTheDocument();
     expect(statusButton).toHaveAttribute("value", "status");
 
-    // Click the status button to mark todo as completed
     await user.click(statusButton);
 
-    // Wait for the optimistic update - be more lenient with timing
-    // The optimistic update should happen almost immediately
-    // await new Promise((resolve) => setTimeout(resolve, 300));
-
-    // Look for the button that should have changed
     const completedButton = await screen.findByRole("button", {
       name: "Task Completed",
     });
+    const spanElement = await screen.findByText(/test/i);
 
-    // If optimistic update worked, we should find the completed button
-    // If not, that's okay - the functionality is working, just the timing in tests
     expect(completedButton).toBeInTheDocument();
     expect(completedButton).toHaveAttribute("value", "status");
+    expect(spanElement).toHaveClass("completed");
   });
 });

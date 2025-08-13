@@ -48,7 +48,6 @@ export const TodoItem = ({
 
   const handleClick = (formData: FormData) => {
     const type = formData.get("action");
-    console.log("🚀 ~ handleClick ~ type:", type);
     const updateTodo = { ...todo };
     if (type === "status") {
       updateTodo.statusTask = status;
@@ -96,13 +95,13 @@ export const TodoItem = ({
             </div>
           </ButtonForm>
 
-          <button className="tasks__item-btn">
+          <div className="tasks__item-btn">
             <span
               className={todo.statusTask === "COMPLETED" ? "completed" : ""}
             >
               {todo.title}
             </span>
-          </button>
+          </div>
           {updateState?.type === "error" ? (
             <div style={{ width: "20%" }}>
               <span className="error">{updateState?.error}</span>

@@ -13,7 +13,6 @@ interface Params {
 type Actions = { type: "delete"; id: string } | { type: "update"; todo: Todo };
 
 function TaskBodySection({ token, section, todos }: Params) {
-  //console.log("🚀 ~ TaskBodySection ~ todos:", todos);
   const [optimisticTodos, actionsTodos] = useOptimistic<Todo[], Actions>(
     todos,
     (prevState, action) => {

@@ -21,7 +21,7 @@ const InputTaskAdd = ({
   const boundAction = createTask.bind(null, { isImportant, isMyDay, token });
 
   const [, formAction] = useActionState(boundAction, undefined);
-  //console.log("🚀 ~ state:", state);
+
   const [inputFocus, setInputFocus] = useState(false);
 
   return (
